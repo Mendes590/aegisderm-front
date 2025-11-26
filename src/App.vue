@@ -34,6 +34,7 @@
 import { ref } from 'vue'
 import UploadZone from './components/UploadZone.vue'
 import ResultView from './components/ResultView.vue'
+import api from './services/api'
 
 const step = ref('upload')
 const file = ref(null)
@@ -53,10 +54,16 @@ function onSelect(f) {
 async function onAnalyze() {
   if (!file.value) return
   isLoading.value = true
-  await new Promise(r => setTimeout(r, 900))
-  result.value = 34.5
-  isLoading.value = false
-  step.value = 'result'
+  try {
+    const response = await api.predict(file.value)
+    result.value = response
+    step.value = 'result'
+  } catch (error) {
+    console.error(error)
+    alert(error.message || 'Erro ao processar imagem')
+  } finally {
+    isLoading.value = false
+  }
 }
 
 function reset() {
