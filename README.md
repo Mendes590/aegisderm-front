@@ -23,7 +23,6 @@ Siga os passos abaixo para configurar o projeto localmente:
     Na raiz do projeto (onde está o arquivo `package.json`), execute:
     ```bash
     npm install
-    npm install
     ```
 
 3.  **Configuração da API**:
